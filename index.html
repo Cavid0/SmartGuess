@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rəqəm Təxmin Oyunu</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .game-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+
+        .game-info {
+            background: linear-gradient(45deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 20px rgba(240, 147, 251, 0.3);
+        }
+
+        .attempts {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .range {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .input-container {
+            margin-bottom: 30px;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 15px 20px;
+            font-size: 1.2rem;
+            border: 2px solid #ddd;
+            border-radius: 50px;
+            text-align: center;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 10px;
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(-1px);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .message {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: bold;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .message.success {
+            background: linear-gradient(45deg, #4facfe, #00f2fe);
+            color: white;
+            box-shadow: 0 10px 20px rgba(79, 172, 254, 0.3);
+        }
+
+        .message.error {
+            background: linear-gradient(45deg, #fa709a, #fee140);
+            color: white;
+            box-shadow: 0 10px 20px rgba(250, 112, 154, 0.3);
+        }
+
+        .message.hint {
+            background: linear-gradient(45deg, #a8edea, #fed6e3);
+            color: #333;
+            box-shadow: 0 10px 20px rgba(168, 237, 234, 0.3);
+        }
+
+        .message.game-over {
+            background: linear-gradient(45deg, #ff9a56, #ff6b6b);
+            color: white;
+            box-shadow: 0 10px 20px rgba(255, 154, 86, 0.3);
+        }
+
+        .reset-btn {
+            background: linear-gradient(45deg, #11998e, #38ef7d);
+        }
+
+        .reset-btn:hover {
+            box-shadow: 0 15px 30px rgba(17, 153, 142, 0.4);
+        }
+
+        .history {
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: 10px;
+            text-align: left;
+        }
+
+        .history h3 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .guess-item {
+            padding: 5px 0;
+            color: #666;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .guess-item:last-child {
+            border-bottom: none;
+        }
+
+        @media (max-width: 600px) {
+            .game-container {
+                padding: 20px;
+                margin: 10px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+
+        .pulse {
+            animation: pulse 0.5s ease-in-out;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1>🎯 Rəqəm Təxmin Oyunu</h1>
+        <p class="subtitle">1 ilə 100 arasında bir rəqəm təxmin edin!</p>
+        
+        <div class="game-info">
+            <div class="attempts">Təxmin: <span id="currentAttempt">0</span>/5</div>
+            <div class="range">Aralıq: 1-100</div>
+        </div>
+
+        <div class="input-container">
+            <input type="number" id="guessInput" min="1" max="100" placeholder="Rəqəminizi daxil edin...">
+        </div>
+
+        <button class="btn" id="submitBtn" onclick="makeGuess()">Təxmin Et</button>
+        <button class="btn reset-btn" id="resetBtn" onclick="resetGame()" style="display:none;">Yenidən Başla</button>
+
+        <div id="message" class="message"></div>
+
+        <div id="history" class="history" style="display:none;">
+            <h3>Təxminlər Tarixçəsi:</h3>
+            <div id="historyList"></div>
+        </div>
+    </div>
+
+    <script>
+        let randomNumber;
+        let attempts;
+        let maxAttempts;
+        let gameHistory;
+        let gameEnded;
+
+        function initGame() {
+            randomNumber = Math.floor(Math.random() * 100) + 1;
+            attempts = 0;
+            maxAttempts = 5;
+            gameHistory = [];
+            gameEnded = false;
+            
+            document.getElementById('currentAttempt').textContent = attempts;
+            document.getElementById('guessInput').value = '';
+            document.getElementById('guessInput').disabled = false;
+            document.getElementById('submitBtn').disabled = false;
+            document.getElementById('submitBtn').style.display = 'inline-block';
+            document.getElementById('resetBtn').style.display = 'none';
+            document.getElementById('message').textContent = '';
+            document.getElementById('message').className = 'message';
+            document.getElementById('history').style.display = 'none';
+            
+            console.log('Doğru rəqəm:', randomNumber); // Debug üçün
+        }
+
+        function makeGuess() {
+            if (gameEnded) return;
+            
+            const guess = parseInt(document.getElementById('guessInput').value);
+            const messageElement = document.getElementById('message');
+            
+            if (isNaN(guess) || guess < 1 || guess > 100) {
+                messageElement.textContent = '1 ilə 100 arasında düzgün rəqəm daxil edin!';
+                messageElement.className = 'message error';
+                return;
+            }
+
+            attempts++;
+            document.getElementById('currentAttempt').textContent = attempts;
+            
+            // Tarixçəyə əlavə et
+            gameHistory.push({
+                guess: guess,
+                attempt: attempts,
+                result: guess === randomNumber ? 'düzgün' : guess < randomNumber ? 'aşağı' : 'yuxarı'
+            });
+
+            if (guess === randomNumber) {
+                messageElement.textContent = `🎉 Təbriklər! Düzgün təxmin etdiniz! Rəqəm ${randomNumber} idi.`;
+                messageElement.className = 'message success pulse';
+                endGame();
+            } else if (attempts >= maxAttempts) {
+                messageElement.textContent = `😔 Təəssüflər! Doğru rəqəmi tapa bilmədiniz. Doğru rəqəm: ${randomNumber}`;
+                messageElement.className = 'message game-over pulse';
+                endGame();
+            } else {
+                if (guess < randomNumber) {
+                    messageElement.textContent = `📈 Daha böyük rəqəm daxil edin! (${maxAttempts - attempts} təxmin qaldı)`;
+                } else {
+                    messageElement.textContent = `📉 Daha kiçik rəqəm daxil edin! (${maxAttempts - attempts} təxmin qaldı)`;
+                }
+                messageElement.className = 'message hint pulse';
+            }
+
+            document.getElementById('guessInput').value = '';
+            updateHistory();
+        }
+
+        function endGame() {
+            gameEnded = true;
+            document.getElementById('guessInput').disabled = true;
+            document.getElementById('submitBtn').style.display = 'none';
+            document.getElementById('resetBtn').style.display = 'inline-block';
+        }
+
+        function resetGame() {
+            initGame();
+        }
+
+        function updateHistory() {
+            const historyElement = document.getElementById('history');
+            const historyList = document.getElementById('historyList');
+            
+            if (gameHistory.length > 0) {
+                historyElement.style.display = 'block';
+                historyList.innerHTML = '';
+                
+                gameHistory.forEach(item => {
+                    const div = document.createElement('div');
+                    div.className = 'guess-item';
+                    let resultText = '';
+                    if (item.result === 'düzgün') {
+                        resultText = '✅ Düzgün!';
+                    } else if (item.result === 'aşağı') {
+                        resultText = '📈 Çox aşağı';
+                    } else {
+                        resultText = '📉 Çox yuxarı';
+                    }
+                    div.textContent = `${item.attempt}. Təxmin: ${item.guess} - ${resultText}`;
+                    historyList.appendChild(div);
+                });
+            }
+        }
+
+        // Enter düyməsi ilə təxmin etmək
+        document.getElementById('guessInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                makeGuess();
+            }
+        });
+
+        // Oyunu başlat
+        initGame();
+    </script>
+</body>
+</html>
