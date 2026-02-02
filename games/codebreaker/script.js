@@ -199,7 +199,7 @@ function logAttempt(guess, feedback) {
     item.appendChild(numSpan);
     item.appendChild(digitsDiv);
     
-    // Check if win for highlighting
+    if (feedback.every(f => f === 'correct')) {
         item.classList.add('win');
     }
     
