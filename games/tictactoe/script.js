@@ -1,3 +1,6 @@
+(function () {
+'use strict';
+
 const cells        = document.querySelectorAll('.cell');
 const boardEl      = document.getElementById('board');
 const statusText   = document.getElementById('status-text');
@@ -91,6 +94,8 @@ cells.forEach(cell => {
         board[idx] = current;
         cell.textContent = current === 'x' ? '✕' : '○';
         cell.classList.add(current === 'x' ? 'x-cell' : 'o-cell', 'taken', 'mark-enter');
+        window.Sfx && Sfx.move();
+        window.Hapt && Hapt.tap();
         cell.addEventListener('animationend', () => cell.classList.remove('mark-enter'), { once: true });
 
         const winLine = checkWin(current);
@@ -111,6 +116,8 @@ function checkWin(player) {
 
 function handleWin(player, line) {
     gameOver = true;
+    window.Sfx && Sfx.win();
+    window.Hapt && Hapt.success();
 
     line.forEach((idx, i) => {
         setTimeout(() => {
@@ -147,6 +154,8 @@ function handleWin(player, line) {
 
 function handleDraw() {
     gameOver = true;
+    window.Sfx && Sfx.warn();
+    window.Hapt && Hapt.warn();
     scores.draw++;
     saveStorage();
 
@@ -230,3 +239,5 @@ document.addEventListener('keydown', e => {
 });
 
 initGame();
+
+})();

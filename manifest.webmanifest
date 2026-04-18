@@ -1,0 +1,20 @@
+{
+  "name": "Mini Games Hub",
+  "short_name": "Games Hub",
+  "description": "Four polished browser mini-games: Code Breaker, Number Guess, Snake, and Tic-Tac-Toe.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0f172a",
+  "theme_color": "#0f172a",
+  "categories": ["games", "entertainment"],
+  "icons": [
+    {
+      "src": "assets/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

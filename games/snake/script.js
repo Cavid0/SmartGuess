@@ -1,5 +1,11 @@
+(function () {
+'use strict';
+
 const canvas   = document.getElementById('game-canvas');
 const ctx      = canvas.getContext('2d');
+const rotateHint = document.getElementById('rotate-hint');
+const dpadBtns   = document.querySelectorAll('.dp-btn[data-dir]');
+const dpPauseBtn = document.getElementById('dp-pause');
 const overlay  = document.getElementById('overlay');
 const startBtn = document.getElementById('start-btn');
 const newGameBtn = document.getElementById('new-game');
@@ -157,12 +163,16 @@ function tick() {
         ate = true;
         food = randCell(snake);
         addLog('🍎', `+${10 * level} points`, 'success');
+        window.Sfx && Sfx.eat();
+        window.Hapt && Hapt.tap();
 
         const newLevel = Math.floor(score / 50) + 1;
         if (newLevel > level) {
             level = newLevel;
             addLog('⬆️', `Level ${level}!`, 'warning');
-            startLoop(); 
+            window.Sfx && Sfx.bonus();
+            window.Hapt && Hapt.success();
+            startLoop();
         }
 
         if (!bonusFood && Math.random() < 0.3) {
@@ -177,6 +187,8 @@ function tick() {
             score += 50 * level;
             ate = true;
             addLog('⭐', `Bonus! +${50 * level} points`, 'warning');
+            window.Sfx && Sfx.bonus();
+            window.Hapt && Hapt.success();
             bonusFood = null;
         } else if (Date.now() > bonusFood.expires) {
             bonusFood = null;
@@ -193,12 +205,15 @@ function tick() {
 function gameOver(reason) {
     running = false;
     clearInterval(gameLoop);
+    window.Sfx && Sfx.lose();
+    window.Hapt && Hapt.error();
 
     if (score > highScore) {
         highScore = score;
         localStorage.setItem('snakeHighScore', highScore);
         highScEl.textContent = highScore;
         addLog('🏆', 'New high score!', 'success');
+        window.Sfx && Sfx.win();
     }
 
     addLog('💀', reason, 'danger');
@@ -392,3 +407,36 @@ infoModal.addEventListener('click', (e) => {
         infoModal.classList.add('hidden');
     }
 });
+
+function applyDir(name) {
+    if (!running) return;
+    window.Hapt && Hapt.tap();
+    if (name === 'up'    && dir.y !== 1)  nextDir = { x: 0, y: -1 };
+    if (name === 'down'  && dir.y !== -1) nextDir = { x: 0, y: 1 };
+    if (name === 'left'  && dir.x !== 1)  nextDir = { x: -1, y: 0 };
+    if (name === 'right' && dir.x !== -1) nextDir = { x: 1, y: 0 };
+}
+
+dpadBtns.forEach(btn => {
+    const handler = (e) => { e.preventDefault(); applyDir(btn.dataset.dir); };
+    btn.addEventListener('touchstart', handler, { passive: false });
+    btn.addEventListener('click', handler);
+});
+
+if (dpPauseBtn) {
+    dpPauseBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (running) togglePause();
+    });
+}
+
+function evalOrientation() {
+    if (!rotateHint) return;
+    const narrowLandscape = window.matchMedia('(orientation: landscape) and (max-height: 480px)').matches;
+    rotateHint.classList.toggle('show', narrowLandscape);
+}
+evalOrientation();
+window.addEventListener('resize', evalOrientation);
+window.addEventListener('orientationchange', evalOrientation);
+
+})();

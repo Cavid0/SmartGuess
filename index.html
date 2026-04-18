@@ -2,15 +2,41 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mini Games Hub</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#0f172a">
+    <meta name="description" content="Mini Games Hub — play Code Breaker, Number Guess, Snake, and Tic-Tac-Toe in a sleek, modern browser interface.">
+    <meta name="author" content="Mini Games Hub">
+    <meta name="robots" content="index, follow">
+    <meta name="referrer" content="no-referrer">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Mini Games Hub">
+    <meta property="og:description" content="Four beautifully crafted browser mini-games. Play instantly — no install required.">
+    <meta name="twitter:card" content="summary">
+
+    <title>Mini Games Hub — Play Instantly</title>
+
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    <link rel="apple-touch-icon" href="assets/favicon.svg">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+    <link rel="manifest" href="manifest.webmanifest">
+
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/security.css">
+    <script src="assets/js/theme.js"></script>
 </head>
 <body>
-    <div class="background-animation">
+    <div class="top-bar">
+        <button class="icon-toggle" id="sound-toggle" type="button" aria-label="Toggle sound" title="Sound"></button>
+        <button class="icon-toggle" id="theme-toggle" type="button" aria-label="Toggle theme" title="Theme"></button>
+    </div>
+
+    <div class="background-animation" aria-hidden="true">
         <div class="circle circle-1"></div>
         <div class="circle circle-2"></div>
         <div class="circle circle-3"></div>
@@ -22,10 +48,10 @@
             <p class="hub-subtitle">Choose your challenge</p>
         </header>
 
-        <div class="games-grid">
-            <div class="game-card" data-game="codebreaker">
+        <div class="games-grid" role="list">
+            <div class="game-card" data-game="codebreaker" role="listitem">
                 <div class="card-content">
-                    <div class="game-icon-wrapper">
+                    <div class="game-icon-wrapper" aria-hidden="true">
                         <span class="game-icon">🔐</span>
                     </div>
                     <h2 class="game-title">Code Breaker</h2>
@@ -37,17 +63,17 @@
                         <span class="feature">Logic Puzzle</span>
                     </div>
                 </div>
-                <a href="games/codebreaker/index.html" class="play-button">
+                <a href="games/codebreaker/index.html" class="play-button" aria-label="Launch Code Breaker">
                     <span>LAUNCH</span>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                         <path d="M5 12h14M12 5l7 7-7 7"/>
                     </svg>
                 </a>
             </div>
 
-            <div class="game-card" data-game="numberguess">
+            <div class="game-card" data-game="numberguess" role="listitem">
                 <div class="card-content">
-                    <div class="game-icon-wrapper">
+                    <div class="game-icon-wrapper" aria-hidden="true">
                         <span class="game-icon">🎲</span>
                     </div>
                     <h2 class="game-title">Number Guess</h2>
@@ -59,17 +85,17 @@
                         <span class="feature">Dynamic Hints</span>
                     </div>
                 </div>
-                <a href="games/numberguess/index.html" class="play-button">
+                <a href="games/numberguess/index.html" class="play-button" aria-label="Launch Number Guess">
                     <span>LAUNCH</span>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                         <path d="M5 12h14M12 5l7 7-7 7"/>
                     </svg>
                 </a>
             </div>
 
-            <div class="game-card" data-game="snake">
+            <div class="game-card" data-game="snake" role="listitem">
                 <div class="card-content">
-                    <div class="game-icon-wrapper">
+                    <div class="game-icon-wrapper" aria-hidden="true">
                         <span class="game-icon">🐍</span>
                     </div>
                     <h2 class="game-title">Snake</h2>
@@ -81,17 +107,17 @@
                         <span class="feature">Level Up</span>
                     </div>
                 </div>
-                <a href="games/snake/index.html" class="play-button">
+                <a href="games/snake/index.html" class="play-button" aria-label="Launch Snake">
                     <span>LAUNCH</span>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                         <path d="M5 12h14M12 5l7 7-7 7"/>
                     </svg>
                 </a>
             </div>
 
-            <div class="game-card" data-game="tictactoe">
+            <div class="game-card" data-game="tictactoe" role="listitem">
                 <div class="card-content">
-                    <div class="game-icon-wrapper">
+                    <div class="game-icon-wrapper" aria-hidden="true">
                         <span class="game-icon">⭕</span>
                     </div>
                     <h2 class="game-title">Tic-Tac-Toe</h2>
@@ -103,9 +129,9 @@
                         <span class="feature">Local PvP</span>
                     </div>
                 </div>
-                <a href="games/tictactoe/index.html" class="play-button">
+                <a href="games/tictactoe/index.html" class="play-button" aria-label="Launch Tic-Tac-Toe">
                     <span>LAUNCH</span>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                         <path d="M5 12h14M12 5l7 7-7 7"/>
                     </svg>
                 </a>
@@ -117,6 +143,10 @@
         </footer>
     </div>
 
+    <script src="assets/js/security.js"></script>
+    <script src="assets/js/haptics.js"></script>
+    <script src="assets/js/sounds.js"></script>
     <script src="assets/js/main.js"></script>
+    <script src="assets/js/pwa.js"></script>
 </body>
 </html>

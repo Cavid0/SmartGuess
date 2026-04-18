@@ -499,3 +499,94 @@ body {
     padding: 40px;
     text-align: center;
 }
+
+* { -webkit-tap-highlight-color: transparent; }
+
+body {
+    padding:
+        env(safe-area-inset-top)
+        env(safe-area-inset-right)
+        env(safe-area-inset-bottom)
+        env(safe-area-inset-left);
+}
+
+@media (max-width: 1024px) {
+    body { overflow-y: auto; align-items: flex-start; padding-top: 16px; }
+    .game-container { height: auto; min-height: 100vh; min-height: 100dvh; }
+    .game-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+    .console-panel { padding: 18px; border-radius: 18px; }
+}
+
+@media (max-width: 640px) {
+    .game-container { width: 100%; padding: 0 12px; gap: 12px; }
+    .game-nav {
+        padding: 12px;
+        border-radius: 16px;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+    .brand { gap: 10px; order: 0; flex: 1; min-width: 0; }
+    .logo-wrapper { width: 40px; height: 40px; border-radius: 10px; }
+    .logo-text { font-size: 1.2rem; }
+    .brand-text h1 { font-size: 1.05rem; }
+    .badge { font-size: 0.6rem; padding: 2px 5px; }
+    .back-button { padding: 8px 10px; font-size: 0.78rem; }
+    .back-button span { display: none; }
+    .btn-reset {
+        padding: 8px 12px;
+        font-size: 0.8rem;
+        min-height: 40px;
+    }
+    .btn-reset svg { width: 16px; height: 16px; }
+
+    .panel-header h2 { font-size: 0.85rem; letter-spacing: 1.5px; }
+
+    .game-grid { gap: 10px; }
+
+    .stat-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .stats-panel .stat-row { display: block; }
+    .stats-panel { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; align-items: stretch; }
+    .stats-panel .panel-header { grid-column: 1 / -1; margin-bottom: 8px; padding-bottom: 8px; }
+    .stats-panel .stat-row { margin: 0; }
+    .stats-panel .stat-card { margin-bottom: 0; padding: 14px 16px; }
+    .stat-value { font-size: 1.4rem; }
+    .circular-progress { width: 40px; height: 40px; right: 12px; }
+
+    .main-panel { padding: 18px; }
+    .game-display { gap: 16px; }
+    .input-label { font-size: 0.75rem; letter-spacing: 2px; }
+    .neon-input {
+        font-size: 2.6rem;
+        padding: 14px;
+        border-radius: 14px;
+    }
+    .btn-primary {
+        padding: 14px;
+        font-size: 0.95rem;
+        border-radius: 12px;
+        min-height: 50px;
+    }
+    .feedback-display { min-height: 44px; }
+    .feedback-msg { padding: 10px 18px; font-size: 0.85rem; }
+
+    .history-panel { max-height: 240px; }
+
+    .result-card-3d { width: calc(100vw - 24px); max-width: 380px; border-radius: 22px; }
+    .card-inner { padding: 26px 20px; border-radius: 18px; }
+}
+
+@media (max-width: 380px) {
+    .neon-input { font-size: 2.1rem; padding: 12px; }
+    .btn-primary { font-size: 0.85rem; letter-spacing: 1.5px; }
+    .stats-panel { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+}

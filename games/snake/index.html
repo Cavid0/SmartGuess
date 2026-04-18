@@ -2,12 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Snake — Neon</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#0a0a0a">
+    <meta name="description" content="Snake Neon — classic arcade snake reimagined with neon visuals, bonus food, and escalating levels.">
+    <meta name="referrer" content="no-referrer">
+    <title>Snake Neon — Mini Games Hub</title>
+    <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="manifest" href="../../manifest.webmanifest">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../../assets/css/security.css">
+    <script src="../../assets/js/theme.js"></script>
 </head>
 <body>
 
@@ -84,14 +92,24 @@
             </aside>
 
             <div class="canvas-section">
-                <canvas id="game-canvas"></canvas>
-                <div id="overlay" class="overlay">
-                    <div class="overlay-inner">
-                        <div class="ov-icon">🐍</div>
-                        <h2 id="overlay-title">Ready?</h2>
-                        <p id="overlay-msg">Control with arrow keys or swipe on mobile</p>
-                        <button id="start-btn" class="start-btn">START GAME</button>
+                <div class="canvas-wrap">
+                    <canvas id="game-canvas"></canvas>
+                    <div id="overlay" class="overlay">
+                        <div class="overlay-inner">
+                            <div class="ov-icon">🐍</div>
+                            <h2 id="overlay-title">Ready?</h2>
+                            <p id="overlay-msg">Control with arrow keys or swipe on mobile</p>
+                            <button id="start-btn" class="start-btn">START GAME</button>
+                        </div>
                     </div>
+                </div>
+
+                <div class="mobile-dpad" aria-label="Direction pad" role="group">
+                    <button class="dp-btn dp-up"    data-dir="up"    aria-label="Move up">▲</button>
+                    <button class="dp-btn dp-left"  data-dir="left"  aria-label="Move left">◀</button>
+                    <button class="dp-btn dp-pause" id="dp-pause"    aria-label="Pause">II</button>
+                    <button class="dp-btn dp-right" data-dir="right" aria-label="Move right">▶</button>
+                    <button class="dp-btn dp-down"  data-dir="down"  aria-label="Move down">▼</button>
                 </div>
             </div>
 
@@ -113,6 +131,13 @@
                 </button>
             </aside>
 
+        </div>
+    </div>
+
+    <div id="rotate-hint" class="rotate-hint hidden" aria-hidden="true">
+        <div class="rh-inner">
+            <div class="rh-icon">📱</div>
+            <p>For the best experience, rotate your device to <strong>portrait</strong>.</p>
         </div>
     </div>
 
@@ -166,6 +191,10 @@
         </div>
     </div>
 
+    <script src="../../assets/js/security.js"></script>
+    <script src="../../assets/js/haptics.js"></script>
+    <script src="../../assets/js/sounds.js"></script>
     <script src="script.js"></script>
+    <script src="../../assets/js/pwa.js"></script>
 </body>
 </html>

@@ -607,3 +607,102 @@ body {
         font-size: 1.5rem;
     }
 }
+
+* { -webkit-tap-highlight-color: transparent; }
+
+body {
+    padding:
+        env(safe-area-inset-top)
+        env(safe-area-inset-right)
+        env(safe-area-inset-bottom)
+        env(safe-area-inset-left);
+    align-items: flex-start;
+    padding-top: max(1rem, env(safe-area-inset-top));
+}
+
+@media (max-width: 900px) {
+    .game-container { padding: 1.2rem; }
+    .game-header { margin-bottom: 1.5rem; padding-bottom: 1rem; flex-wrap: wrap; gap: 0.75rem; }
+    .header-content { order: 3; width: 100%; text-align: center; }
+    .game-title { font-size: 1.4rem; }
+    .game-subtitle { font-size: 0.75rem; letter-spacing: 2px; }
+    .game-board { grid-template-columns: 1fr; gap: 1.25rem; }
+    .left-panel, .right-panel {
+        padding: 1.25rem;
+        border-radius: 16px;
+    }
+}
+
+@media (max-width: 640px) {
+    body { align-items: flex-start; padding-top: max(0.75rem, env(safe-area-inset-top)); }
+    .game-container { padding: 0.9rem; }
+    .back-button span { display: none; }
+    .back-button {
+        padding: 10px;
+        min-width: 44px;
+        min-height: 44px;
+        justify-content: center;
+    }
+    .control-button { min-height: 44px; padding: 0.6rem 0.9rem; font-size: 0.8rem; }
+    .control-button svg { width: 16px; height: 16px; }
+    .new-game-button span { display: inline; }
+
+    .status-section { padding: 0.75rem 0; }
+    .status-label { font-size: 0.7rem; letter-spacing: 1.5px; }
+    .status-number { font-size: 2.2rem; }
+
+    .input-display {
+        gap: 0.55rem;
+        flex-wrap: nowrap;
+        justify-content: center;
+    }
+    .digit-input {
+        width: 58px !important;
+        height: 68px !important;
+        font-size: 1.8rem !important;
+        border-radius: 12px;
+    }
+
+    .submit-btn {
+        min-height: 52px;
+        font-size: 0.85rem;
+        letter-spacing: 2px;
+        padding: 0.9rem;
+    }
+
+    .legend-panel { flex-wrap: wrap; gap: 0.6rem; justify-content: center; }
+    .legend-item { font-size: 0.7rem; }
+
+    .history-container { height: 260px; }
+    .history-header { padding: 0.75rem 1rem; font-size: 0.75rem; }
+    .history-item { padding: 0.6rem 0.8rem; }
+    .mini-digit {
+        width: 30px !important;
+        height: 30px !important;
+        font-size: 0.9rem !important;
+    }
+
+    .modal-card { padding: 1.5rem; margin: 1rem; border-radius: 20px; }
+    .modal-icon { font-size: 2.4rem; }
+    .modal-title { font-size: 1.4rem; }
+    .modal-message { font-size: 0.85rem; }
+    .modal-action-btn { min-height: 48px; }
+    .code-reveal { font-size: 1.5rem; }
+}
+
+@media (max-width: 380px) {
+    .digit-input {
+        width: 50px !important;
+        height: 60px !important;
+        font-size: 1.55rem !important;
+    }
+    .input-display { gap: 0.4rem; }
+    .game-title { font-size: 1.2rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+}

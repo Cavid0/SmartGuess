@@ -1,0 +1,108 @@
+html, body {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+}
+
+input, textarea, [contenteditable="true"] {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+}
+
+img, svg, canvas {
+    -webkit-user-drag: none;
+    user-drag: none;
+    pointer-events: auto;
+}
+
+#__mgh_toast {
+    position: fixed;
+    left: 50%;
+    bottom: 28px;
+    transform: translateX(-50%) translateY(20px);
+    background: rgba(15, 23, 42, 0.92);
+    color: #f8fafc;
+    padding: 0.7rem 1.1rem;
+    border-radius: 12px;
+    font-family: 'Outfit', system-ui, sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 2147483646;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+#__mgh_toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+#__mgh_block {
+    position: fixed;
+    inset: 0;
+    background: rgba(6, 10, 20, 0.96);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2147483647;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    font-family: 'Outfit', system-ui, sans-serif;
+    padding: 2rem;
+}
+
+#__mgh_block.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+#__mgh_block .__mgh_block_inner {
+    text-align: center;
+    max-width: 420px;
+    padding: 2.5rem 2rem;
+    border-radius: 24px;
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(168, 85, 247, 0.06));
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+}
+
+#__mgh_block .__mgh_shield {
+    font-size: 3.2rem;
+    margin-bottom: 0.6rem;
+    filter: drop-shadow(0 0 24px rgba(99, 102, 241, 0.55));
+    animation: __mgh_pulse 2.2s ease-in-out infinite;
+}
+
+#__mgh_block h2 {
+    color: #f8fafc;
+    font-size: 1.6rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    margin: 0 0 0.6rem;
+}
+
+#__mgh_block p {
+    color: #94a3b8;
+    font-size: 0.95rem;
+    line-height: 1.55;
+    margin: 0;
+}
+
+@keyframes __mgh_pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50%      { transform: scale(1.08); opacity: 0.85; }
+}
